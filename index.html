@@ -140,6 +140,28 @@
     footer a {
       color: #999;
     }
+
+    .media-piece {
+      margin: 2rem 0 0;
+      padding: 1.5rem;
+      border: 1px solid #2b2b2b;
+      background: #080808;
+    }
+    .media-piece img {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 0 0 1.25rem;
+      background: #fbf7f0;
+    }
+    .media-piece audio {
+      display: block;
+      width: 100%;
+      margin: 0 0 1.25rem;
+    }
+    .media-piece .buttons {
+      justify-content: flex-start;
+    }
     @media (max-width: 600px) {
       header { padding: 3rem 1.25rem; }
       main { padding: 3rem 0; }
@@ -188,6 +210,23 @@ U(t) = exp(-i H_spatial t/ℏ)</div>
       <p>What do these terms mean here? Which assumptions are missing? That is precisely where constructive responses are welcome.</p>
     </section>
 
+    <section>
+      <h2>Bohr Flop in C minor</h2>
+      <p>A sonification of a resonant driven qubit and a quantum harmonic oscillator superposition. Melody tracks the excited-state probability; the partner voice is the singlet anti-correlation. Quarter note = 108.</p>
+      <div class="media-piece">
+        <img src="bohr-flop.svg" alt="Lead-sheet score for Bohr Flop in C minor" width="818" height="200">
+        <audio controls preload="metadata" src="bohr-flop.wav">
+          Your browser does not support the audio element. <a href="bohr-flop.wav">Download the WAV</a>.
+        </audio>
+        <div class="buttons">
+          <a class="button" href="bohr-flop-in-c-minor.pdf">Bohr Flop lead sheet (PDF)</a>
+          <a class="button" href="bohr-flop.wav">Bohr Flop audio (WAV)</a>
+          <a class="button" href="bohr-flop.svg">Bohr Flop score (SVG)</a>
+          <a class="button" href="bohr-flop.abc">Bohr Flop notation (ABC)</a>
+        </div>
+      </div>
+    </section>
+
     <section class="cta">
       <h2>We Want Your Thoughts</h2>
       <p>This is an evolving theory. Send a critique, an alternative interpretation, a reference, or simply tell us where the joke stops being funny.</p>
@@ -197,6 +236,10 @@ U(t) = exp(-i H_spatial t/ℏ)</div>
         <a class="button" href="quantum-teleportation.pdf">Quantum teleportation formulas (PDF)</a>
         <a class="button" href="quantum-spatial-mapping-and-teleportation.pdf">Quantum Spatial Mapping and Quantum Teleportation (book, PDF)</a>
         <a class="button" href="quantum-spatial-mapping-for-quantum-computing.pdf">Quantum Spatial Mapping for Quantum Computing (book, PDF)</a>
+        <a class="button" href="bohr-flop-in-c-minor.pdf">Bohr Flop in C minor (PDF)</a>
+        <a class="button" href="bohr-flop.wav">Bohr Flop audio (WAV)</a>
+        <a class="button" href="bohr-flop.svg">Bohr Flop score (SVG)</a>
+        <a class="button" href="bohr-flop.abc">Bohr Flop notation (ABC)</a>
       </div>
     </section>
 
