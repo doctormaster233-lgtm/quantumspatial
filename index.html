@@ -229,12 +229,16 @@
       .buttons { flex-direction: column; }
       .button { width: 100%; }
     }
-    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.5rem 0 2.5rem; }
+    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; align-items: start; margin: 1.5rem 0 2.5rem; }
     .gallery figure { margin: 0; padding: .75rem; border: 1px solid #2b2b2b; background: #080808; }
     .gallery a { display: block; }
     .gallery img { display: block; width: 100%; height: auto; }
     .gallery figcaption { margin-top: .6rem; color: #999; font-size: .8rem; }
     @media (max-width: 640px) { .gallery { grid-template-columns: 1fr; } }
+    .pullquote { margin: 3.5rem auto; padding: 0 1rem; max-width: 40rem; text-align: center; font-family: Helvetica, Arial, sans-serif; font-size: clamp(1.8rem, 5vw, 3rem); font-style: italic; font-weight: 300; line-height: 1.25; color: #f5f5f5; }
+    .pullquote::before { content: ""; display: block; width: 3rem; margin: 0 auto 1.25rem; border-top: 1px solid #fff; }
+    .pullquote p { margin: 0; }
+    .pullquote .pullquote-note { margin-top: 1rem; font-size: .8rem; font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: #999; line-height: 1.5; }
   </style>
 </head>
 <body>
@@ -279,6 +283,8 @@
       <p>Rather than treating space as a passive container for quantum events, this framework asks whether spatial geometry might play an active role in mediating quantum interactions. The idea is intentionally open to scrutiny, questions, and better explanations.</p>
     </section>
 
+    <blockquote class="pullquote"><p>Serious questions, questionable certainty.</p></blockquote>
+
     <section>
       <h2>Mathematical Framework</h2>
       <p>The formalism is a starting point for discussion, building on familiar quantum-mechanical notation:</p>
@@ -292,6 +298,8 @@ U(t) = exp(−iHt/ℏ)</div>
       <p class="note-meta"><span class="label commentary">Commentary</span>Corrected 6 October 2026: this page used to read H = H₀ + ℏ²/2m ∇²Ψ + V(r,t), which put the wavefunction inside the Hamiltonian. See the <a href="poking-holes-in-the-hilbert-sphere.pdf">Hilbert Sphere site note</a>.</p>
       <p>What do these terms mean here? Which assumptions are missing? That is precisely where constructive responses are welcome.</p>
     </section>
+
+    <blockquote class="pullquote"><p>A proposal that admits it might be wrong.</p><p class="pullquote-note">This page is evolving. Corrections welcome.</p></blockquote>
 
     <section>
       <h2>Questions to Explore <span class="label framework">Framework</span></h2>
@@ -347,6 +355,7 @@ U(t) = exp(−iHt/ℏ)</div>
     <section class="resource-list">
       <h2>Books and papers</h2>
       <p>Download the current drafts and formula notes as PDFs.</p>
+      <blockquote class="pullquote"><p>Is four a lot?</p></blockquote>
       <div class="buttons">
         <a class="button" href="quantum-teleportation.pdf">Quantum teleportation formulas (PDF)</a>
         <a class="button" href="quantum-spatial-mapping-and-teleportation.pdf">Quantum Spatial Mapping and Quantum Teleportation (book, PDF)</a>
