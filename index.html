@@ -229,6 +229,12 @@
       .buttons { flex-direction: column; }
       .button { width: 100%; }
     }
+    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin: 1.5rem 0 2.5rem; }
+    .gallery figure { margin: 0; padding: .75rem; border: 1px solid #2b2b2b; background: #080808; }
+    .gallery a { display: block; }
+    .gallery img { display: block; width: 100%; height: auto; }
+    .gallery figcaption { margin-top: .6rem; color: #999; font-size: .8rem; }
+    @media (max-width: 640px) { .gallery { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
@@ -346,6 +352,27 @@ U(t) = exp(−iHt/ℏ)</div>
         <a class="button" href="quantum-spatial-mapping-and-teleportation.pdf">Quantum Spatial Mapping and Quantum Teleportation (book, PDF)</a>
         <a class="button" href="quantum-spatial-mapping-for-quantum-computing.pdf">Quantum Spatial Mapping for Quantum Computing (book, PDF)</a>
         <a class="button" href="four-is-too-many.pdf">Is four a lot? (zine, PDF)</a>
+        <a class="button" href="bloch-sphere-diagrams.pdf">Bloch sphere diagrams (PDF)</a>
+      </div>
+      <h3>The Bloch sphere in pictures</h3>
+      <p>One qubit, one sphere: a few friendly pictures to keep beside the formulas. Tap any image for the full size.</p>
+      <div class="gallery">
+        <figure>
+          <a href="diagrams/01_bloch_sphere.webp"><img src="diagrams/01_bloch_sphere.webp" alt="Labelled Bloch sphere with the state formula" loading="lazy" width="1200"></a>
+          <figcaption>The Bloch sphere, labelled</figcaption>
+        </figure>
+        <figure>
+          <a href="diagrams/02_parameter_countdown.webp"><img src="diagrams/02_parameter_countdown.webp" alt="Four numbers down to two: normalisation and global phase" loading="lazy" width="1200"></a>
+          <figcaption>Four numbers down to two</figcaption>
+        </figure>
+        <figure>
+          <a href="diagrams/05_why_theta_over_2.webp"><img src="diagrams/05_why_theta_over_2.webp" alt="Why theta over 2: 90 degrees in Hilbert space becomes 180 on the sphere" loading="lazy" width="1200"></a>
+          <figcaption>Why θ/2?</figcaption>
+        </figure>
+        <figure>
+          <a href="diagrams/12_cheat_sheet.webp"><img src="diagrams/12_cheat_sheet.webp" alt="Bloch sphere formula cheat sheet" loading="lazy" width="1200"></a>
+          <figcaption>The cheat sheet</figcaption>
+        </figure>
       </div>
       <h3>Policy and proposals</h3>
       <p>A short plan for how Canada could reignite space exploration.</p>
