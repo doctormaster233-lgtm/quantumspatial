@@ -24,12 +24,14 @@
     <input id="angle" type="range" min="0" max="360" value="0"></label>
   <label><input id="auto" type="checkbox" checked> Auto-rotate</label>
   <label><input id="labels" type="checkbox" checked> Show qubit labels</label>
+  <label><input id="trails" type="checkbox"> Motion trails</label>
   <div style="margin-top:8px"><a href="/">← Quantum Spatial</a></div>
 </div>
 <script>
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const angle=document.getElementById('angle'),av=document.getElementById('av');
-const auto=document.getElementById('auto'),labels=document.getElementById('labels');
+const auto=document.getElementById('auto'),labels=document.getElementById('labels'),trails=document.getElementById('trails');
+const TRAIL=10,hist=[];
 let W,H,dpr;
 function resize(){dpr=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
 addEventListener('resize',resize);resize();
@@ -61,6 +63,14 @@ function frame(now){
   ctx.fillStyle='#0b0d17';ctx.fillRect(0,0,W,H);
   const zs=P.map(p=>p.z),zmin=Math.min(...zs),zmax=Math.max(...zs);
   const depth=z=>(z-zmin)/(zmax-zmin+1e-9);
+  if(trails.checked){
+    hist.push(P.map(p=>({x:p.x,y:p.y,w:p.w,d:depth(p.z)})));
+    if(hist.length>TRAIL)hist.shift();
+    hist.forEach((f,k)=>{const a=0.35*(k+1)/hist.length;
+      f.forEach(q=>{const hue=180-120*((q.w+2)/4);
+        ctx.fillStyle=`hsla(${hue},80%,${45+20*q.d}%,${a})`;
+        ctx.beginPath();ctx.arc(q.x,q.y,(4+4*q.d)*(0.5+0.5*(k+1)/hist.length),0,7);ctx.fill();});});
+  } else hist.length=0;
   for(const [i,j] of E.slice().sort((a,b)=>(P[a[0]].z+P[a[1]].z)-(P[b[0]].z+P[b[1]].z))){
     const d=depth((P[i].z+P[j].z)/2);
     ctx.strokeStyle=`rgba(140,130,255,${0.2+0.7*d})`;ctx.lineWidth=1+1.5*d;
