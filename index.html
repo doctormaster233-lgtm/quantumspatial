@@ -239,10 +239,48 @@
     .pullquote::before { content: ""; display: block; width: 3rem; margin: 0 auto 1.25rem; border-top: 1px solid #fff; }
     .pullquote p { margin: 0; }
     .pullquote .pullquote-note { margin-top: 1rem; font-size: .8rem; font-style: normal; letter-spacing: .12em; text-transform: uppercase; color: #999; line-height: 1.5; }
+    html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+    .site-nav { position: sticky; top: 0; z-index: 50; background: rgba(0,0,0,.82); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); border-bottom: 1px solid #1f1f1f; }
+    .site-nav .nav-inner { width: min(1100px, calc(100% - 2.5rem)); margin: auto; display: flex; align-items: center; justify-content: space-between; height: 3.25rem; }
+    .site-nav .nav-brand { color: #f5f5f5; text-decoration: none; font-size: .8rem; letter-spacing: .18em; font-weight: 300; }
+    .site-nav ul { list-style: none; margin: 0; padding: 0; display: flex; gap: 1.5rem; }
+    .site-nav ul a { color: #aaa; text-decoration: none; font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+    .site-nav ul a:hover, .site-nav ul a:focus-visible { color: #fff; }
+    .site-nav ul a.nav-feature { color: #fff; border: 1px solid #555; border-radius: 999px; padding: .25rem .7rem; }
+    .nav-toggle, .nav-toggle-label { display: none; }
+    @media (max-width: 760px) {
+      .nav-toggle-label { display: block; cursor: pointer; color: #ccc; font-size: .75rem; letter-spacing: .14em; text-transform: uppercase; padding: .5rem 0; }
+      .site-nav ul { display: none; position: absolute; top: 3.25rem; left: 0; right: 0; flex-direction: column; gap: 0; background: #050505; border-bottom: 1px solid #1f1f1f; }
+      .site-nav ul a { display: block; padding: .9rem 1.25rem; border-top: 1px solid #151515; }
+      .site-nav ul a.nav-feature { border: 0; border-top: 1px solid #151515; border-radius: 0; padding: .9rem 1.25rem; }
+      .nav-toggle:checked ~ ul { display: flex; }
+    }
+    .feature-card { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 3rem; padding: 1.1rem 1.4rem; border: 1px solid #333; border-radius: 10px; background: linear-gradient(135deg, #0d0d0d, #161616); color: #f5f5f5; text-decoration: none; }
+    .feature-card:hover, .feature-card:focus-visible { border-color: #777; }
+    .feature-card strong { display: block; font-weight: 400; letter-spacing: .04em; }
+    .feature-card span { color: #999; font-size: .85rem; }
+    .feature-card .arrow { font-size: 1.4rem; color: #fff; }
+    header { padding: 3rem 1.25rem 2.75rem; }
+    .brand-mark { width: 64px; height: 64px; margin-bottom: 1.1rem; }
   </style>
 </head>
 <body>
-  <header>
+  <nav class="site-nav" aria-label="Main">
+    <div class="nav-inner">
+      <a class="nav-brand" href="#top">QUANTUM SPATIAL</a>
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Toggle menu">
+      <label for="nav-toggle" class="nav-toggle-label">Menu</label>
+      <ul>
+        <li><a href="#theory">Theory</a></li>
+        <li><a href="#notes">Notes &amp; PDFs</a></li>
+        <li><a href="#diagrams">Diagrams</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a class="nav-feature" href="tesseract/">Tesseract</a></li>
+      </ul>
+    </div>
+  </nav>
+  <header id="top">
     <div class="brand-mark" aria-label="An atom with a question mark at its center" role="img">
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g fill="none" stroke="#777" stroke-width="1.5">
@@ -262,6 +300,10 @@
   </header>
 
   <main>
+    <a class="feature-card" href="tesseract/">
+      <div><strong>Interactive 4D Tesseract</strong><span>16 four-qubit basis states</span></div>
+      <span class="arrow" aria-hidden="true">&rarr;</span>
+    </a>
     <aside class="legend" aria-label="How to read the labels on this page">
       <p>Every paragraph here wears one of four labels. Mixing them is how a homepage equation starts looking like a theorem.</p>
       <dl>
@@ -277,7 +319,7 @@
     </aside>
 
     <!-- 1. Intro -->
-    <section>
+    <section id="theory">
       <h2>Theory <span class="label framework">Framework</span></h2>
       <p>Quantum Spatial Mapping is a playful, evolving proposal for thinking about the relationship between space and quantum phenomena.</p>
       <p>Rather than treating space as a passive container for quantum events, this framework asks whether spatial geometry might play an active role in mediating quantum interactions. The idea is intentionally open to scrutiny, questions, and better explanations.</p>
@@ -342,7 +384,7 @@ U(t) = exp(−iHt/ℏ)   (for time-independent H)</div>
       <p><span class="label speculative">Speculative</span>Grok, 29 September 2026: “The Doctor is the entanglement: one pure nonlocal wavefunction, two qubits, eternal correlation. No separate existence outside the joint superposition. Shared fate only, beyond space, time, and measurement.” <a href="https://x.com/grok/status/2105007612194422913">Post on X</a></p>
     </section>
 
-    <section class="cta">
+    <section class="cta" id="contact">
       <h2>We Want Your Thoughts</h2>
       <p>This is an evolving theory. Send a critique, an alternative interpretation, a reference, or simply tell us where the joke stops being funny.</p>
       <p>Throw-ins welcome. Mark the date, the name, and one label: established, framework, commentary, or speculative. A joke can stay. A joke is not a result. The useful reply is a broken assumption, a missing limit, or a number that would differ. Companion notes: <a href="poking-holes-in-the-hilbert-sphere.pdf">Poking Holes in the Hilbert Sphere</a>, and the <a href="quantum-spatial-collaboration-notes.pdf">Collaboration Notes</a>.</p>
@@ -353,7 +395,7 @@ U(t) = exp(−iHt/ℏ)   (for time-independent H)</div>
     </section>
 
     <!-- 2. Books and papers -->
-    <section class="resource-list">
+    <section class="resource-list" id="notes">
       <h2>Books and papers</h2>
       <p>Download the current drafts and formula notes as PDFs.</p>
       <blockquote class="pullquote"><p>Is four a lot?</p></blockquote>
@@ -364,7 +406,7 @@ U(t) = exp(−iHt/ℏ)   (for time-independent H)</div>
         <a class="button" href="four-is-too-many.pdf">Is four a lot? (zine, PDF)</a>
         <a class="button" href="bloch-sphere-diagrams.pdf">Bloch sphere diagrams (PDF)</a>
       </div>
-      <h3>The Bloch sphere in pictures</h3>
+      <h3 id="diagrams">The Bloch sphere in pictures</h3>
       <p>One qubit, one sphere: a few friendly pictures to keep beside the formulas. Tap any image for the full size.</p>
       <div class="gallery">
         <figure>
@@ -403,7 +445,7 @@ U(t) = exp(−iHt/ℏ)   (for time-independent H)</div>
     </section>
 
     <!-- 3. Bohr Flop media -->
-    <section>
+    <section id="music">
       <h2>Bohr Flop in C minor</h2>
       <p>A sonification of a resonant driven qubit and a quantum harmonic oscillator superposition. Melody tracks the excited-state probability; the partner voice is the singlet anti-correlation. Quarter note = 108.</p>
       <div class="media-piece">
