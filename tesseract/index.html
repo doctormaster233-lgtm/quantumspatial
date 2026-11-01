@@ -31,6 +31,11 @@
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const angle=document.getElementById('angle'),av=document.getElementById('av');
 const auto=document.getElementById('auto'),labels=document.getElementById('labels'),trails=document.getElementById('trails');
+// MOTION TRAILS - INTENTIONAL DESIGN. Please do not "fix" this.
+// The disorienting, slightly nauseating / vertigo feel of the trails is deliberate.
+// It conveys how disorienting it is to perceive 4D space projected into 3D, and it
+// is part of what keeps this viewer honest. Do not smooth, shorten, dim or otherwise
+// reduce the effect without the site owner's explicit approval. (Off by default.)
 const TRAIL=12,EVERY=4,hist=[];let tick=0;
 let W,H,dpr;
 function resize(){dpr=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
