@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tesseract Viewer · Quantum Spatial Mapping</title>
+<style>
+  html,body{margin:0;height:100%;background:#0b0d17;color:#e6e6f0;font-family:system-ui,sans-serif}
+  canvas{display:block;width:100%;height:100%;cursor:grab;touch-action:none}
+  canvas:active{cursor:grabbing}
+  #ui{position:fixed;left:16px;top:16px;background:rgba(20,22,40,.85);padding:12px 14px;border-radius:10px;max-width:300px;font-size:14px}
+  #ui h1{font-size:16px;margin:0 0 6px}
+  #ui label{display:block;margin-top:8px}
+  #ui input[type=range]{width:100%}
+  #ui a{color:#9fa8ff}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="ui">
+  <h1>4D Tesseract</h1>
+  <div>Drag to rotate in 4D (horizontal: XW plane, vertical: YW plane). 16 vertices = four-qubit basis states, 32 edges = one-bit flips.</div>
+  <label>4D rotation angle (ZW): <span id="av">0°</span>
+    <input id="angle" type="range" min="0" max="360" value="0"></label>
+  <label><input id="auto" type="checkbox" checked> Auto-rotate</label>
+  <label><input id="labels" type="checkbox" checked> Show qubit labels</label>
+  <div style="margin-top:8px"><a href="/">← Quantum Spatial</a></div>
+</div>
+<script>
+const cv=document.getElementById('c'),ctx=cv.getContext('2d');
+const angle=document.getElementById('angle'),av=document.getElementById('av');
+const auto=document.getElementById('auto'),labels=document.getElementById('labels');
+let W,H,dpr;
+function resize(){dpr=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+addEventListener('resize',resize);resize();
+const V=[];for(let i=0;i<16;i++)V.push([0,1,2,3].map(k=>(i>>(3-k))&1?1:-1));
+const E=[];for(let i=0;i<16;i++)for(let j=i+1;j<16;j++){const d=i^j;if((d&(d-1))===0)E.push([i,j]);}
+const lab=v=>'|'+v.map(c=>c>0?1:0).join('')+'⟩';
+function rot(v,a,b,t){const c=Math.cos(t),s=Math.sin(t),p=v.slice();p[a]=v[a]*c-v[b]*s;p[b]=v[a]*s+v[b]*c;return p;}
+let xw=0,yw=0,zw=0,drag=null;
+cv.addEventListener('pointerdown',e=>{drag=[e.clientX,e.clientY];cv.setPointerCapture(e.pointerId);});
+cv.addEventListener('pointermove',e=>{if(!drag)return;xw+=(e.clientX-drag[0])*0.01;yw+=(e.clientY-drag[1])*0.01;drag=[e.clientX,e.clientY];});
+cv.addEventListener('pointerup',()=>drag=null);
+angle.addEventListener('input',()=>{zw=angle.value*Math.PI/180;});
+let spin=0,last=performance.now();
+function frame(now){
+  const dt=(now-last)/1000;last=now;
+  if(auto.checked&&!drag){zw+=dt*0.5;zw%=2*Math.PI;angle.value=Math.round(zw*180/Math.PI);}
+  av.textContent=angle.value+'°';
+  spin+=dt*0.15;
+  const sc=Math.min(W,H)*0.16;
+  const P=V.map(v=>{
+    let p=rot(v,0,3,xw);p=rot(p,1,3,yw);p=rot(p,2,3,zw);
+    const s=1/(3-p[3])*2;             // 4D -> 3D perspective
+    let x=p[0]*s,y=p[1]*s,z=p[2]*s;
+    const c=Math.cos(spin),sn=Math.sin(spin);[x,z]=[x*c-z*sn,x*sn+z*c];
+    const ca=Math.cos(.45),sa=Math.sin(.45);[y,z]=[y*ca-z*sa,y*sa+z*ca];
+    const f=4/(4-z);                   // 3D -> 2D perspective
+    return {x:W/2+x*f*sc,y:H/2+y*f*sc,z,w:p[3]};
+  });
+  ctx.fillStyle='#0b0d17';ctx.fillRect(0,0,W,H);
+  const zs=P.map(p=>p.z),zmin=Math.min(...zs),zmax=Math.max(...zs);
+  const depth=z=>(z-zmin)/(zmax-zmin+1e-9);
+  for(const [i,j] of E.slice().sort((a,b)=>(P[a[0]].z+P[a[1]].z)-(P[b[0]].z+P[b[1]].z))){
+    const d=depth((P[i].z+P[j].z)/2);
+    ctx.strokeStyle=`rgba(140,130,255,${0.2+0.7*d})`;ctx.lineWidth=1+1.5*d;
+    ctx.beginPath();ctx.moveTo(P[i].x,P[i].y);ctx.lineTo(P[j].x,P[j].y);ctx.stroke();
+  }
+  P.map((p,i)=>[p,i]).sort((a,b)=>a[0].z-b[0].z).forEach(([p,i])=>{
+    const d=depth(p.z),hue=180-120*((p.w+2)/4);
+    ctx.fillStyle=`hsl(${hue},80%,${45+20*d}%)`;
+    ctx.beginPath();ctx.arc(p.x,p.y,4+4*d,0,7);ctx.fill();
+    if(labels.checked){ctx.fillStyle=`rgba(230,230,240,${0.4+0.6*d})`;ctx.font='12px monospace';ctx.textAlign='center';ctx.fillText(lab(V[i]),p.x,p.y-10);}
+  });
+  requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+</script>
+</body>
+</html>
