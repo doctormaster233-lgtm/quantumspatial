@@ -31,7 +31,7 @@
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const angle=document.getElementById('angle'),av=document.getElementById('av');
 const auto=document.getElementById('auto'),labels=document.getElementById('labels'),trails=document.getElementById('trails');
-const TRAIL=10,hist=[];
+const TRAIL=12,EVERY=4,hist=[];let tick=0;
 let W,H,dpr;
 function resize(){dpr=window.devicePixelRatio||1;W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
 addEventListener('resize',resize);resize();
@@ -64,12 +64,13 @@ function frame(now){
   const zs=P.map(p=>p.z),zmin=Math.min(...zs),zmax=Math.max(...zs);
   const depth=z=>(z-zmin)/(zmax-zmin+1e-9);
   if(trails.checked){
-    hist.push(P.map(p=>({x:p.x,y:p.y,w:p.w,d:depth(p.z)})));
-    if(hist.length>TRAIL)hist.shift();
-    hist.forEach((f,k)=>{const a=0.35*(k+1)/hist.length;
-      f.forEach(q=>{const hue=180-120*((q.w+2)/4);
-        ctx.fillStyle=`hsla(${hue},80%,${45+20*q.d}%,${a})`;
-        ctx.beginPath();ctx.arc(q.x,q.y,(4+4*q.d)*(0.5+0.5*(k+1)/hist.length),0,7);ctx.fill();});});
+    if(tick++%EVERY===0){hist.push(P.map(p=>({x:p.x,y:p.y,w:p.w,d:depth(p.z)})));if(hist.length>TRAIL)hist.shift();}
+    const pts=hist.concat([P.map(p=>({x:p.x,y:p.y,w:p.w,d:depth(p.z)}))]);
+    ctx.lineCap='round';
+    for(let v=0;v<16;v++)for(let k=1;k<pts.length;k++){
+      const a=pts[k-1][v],b=pts[k][v],t=k/(pts.length-1),hue=180-120*((b.w+2)/4);
+      ctx.strokeStyle=`hsla(${hue},85%,${50+20*b.d}%,${0.6*t})`;ctx.lineWidth=1+5*t;
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
   } else hist.length=0;
   for(const [i,j] of E.slice().sort((a,b)=>(P[a[0]].z+P[a[1]].z)-(P[b[0]].z+P[b[1]].z))){
     const d=depth((P[i].z+P[j].z)/2);
