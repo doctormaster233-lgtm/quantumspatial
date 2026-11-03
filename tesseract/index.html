@@ -13,12 +13,23 @@
   #ui label{display:block;margin-top:8px}
   #ui input[type=range]{width:100%}
   #ui a{color:#9fa8ff}
+  #uiToggle{display:none;background:none;border:1px solid #9fa8ff;color:#e6e6f0;border-radius:6px;font:inherit;padding:2px 8px;cursor:pointer}
+  @media (max-width:600px){
+    #ui{left:8px;top:8px;padding:6px 8px;font-size:12px;max-width:calc(100vw - 32px)}
+    #ui h1{font-size:13px;margin:0 0 4px}
+    #ui label{margin-top:5px}
+    #uiToggle{display:inline-block}
+    #ui.collapsed #uiBody{display:none}
+    #ui.collapsed h1{display:none}
+  }
 </style>
 </head>
 <body>
 <canvas id="c"></canvas>
 <div id="ui">
+  <button id="uiToggle" type="button" aria-controls="uiBody" aria-expanded="true">Controls ▾</button>
   <h1>4D Tesseract</h1>
+  <div id="uiBody">
   <div>Drag to rotate in 4D (horizontal: XW plane, vertical: YW plane). 16 vertices = four-qubit basis states, 32 edges = one-bit flips.</div>
   <label>4D rotation angle (ZW): <span id="av">0°</span>
     <input id="angle" type="range" min="0" max="360" value="0"></label>
@@ -26,7 +37,16 @@
   <label><input id="labels" type="checkbox" checked> Show qubit labels</label>
   <label><input id="trails" type="checkbox"> Motion trails</label>
   <div style="margin-top:8px"><a href="/">← Quantum Spatial</a></div>
+  </div>
 </div>
+<script>
+(function(){
+  const ui=document.getElementById('ui'),btn=document.getElementById('uiToggle');
+  function set(c){ui.classList.toggle('collapsed',c);btn.textContent=c?'Controls ▸':'Controls ▾';btn.setAttribute('aria-expanded',String(!c));}
+  btn.addEventListener('click',()=>set(!ui.classList.contains('collapsed')));
+  set(window.matchMedia('(max-width:600px)').matches);
+})();
+</script>
 <script>
 const cv=document.getElementById('c'),ctx=cv.getContext('2d');
 const angle=document.getElementById('angle'),av=document.getElementById('av');
