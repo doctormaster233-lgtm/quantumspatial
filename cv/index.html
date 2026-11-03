@@ -48,7 +48,17 @@
   .contact a:hover { color: var(--accent); }
   .work-btn { display: inline-block; margin: 0.5rem 0 0.4rem; padding: 0.35rem 0.9rem; font-size: 0.9rem; color: var(--bg); background: var(--accent); border-radius: 4px; text-decoration: none; }
   .work-btn:hover { opacity: 0.9; }
-  @media print { .work-btn { display: none; } }
+  .contact-form { display: grid; gap: 0.8rem; background: var(--light); border: 1px solid var(--border); border-radius: 6px; padding: 1.1rem 1.2rem; }
+  .contact-form label { display: block; font-size: 0.9rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .contact-form .optional { font-weight: 400; color: var(--muted); }
+  .contact-form input, .contact-form textarea { width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 4px; padding: 0.5rem 0.6rem; }
+  .contact-form textarea { min-height: 8rem; resize: vertical; }
+  .contact-form input:focus, .contact-form textarea:focus { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .contact-form button { justify-self: start; font: inherit; font-size: 0.95rem; color: var(--bg); background: var(--accent); border: 0; border-radius: 4px; padding: 0.5rem 1.2rem; cursor: pointer; }
+  .contact-form button:hover { opacity: 0.9; }
+  .form-note { font-size: 0.85rem; color: var(--muted); }
+  .form-note a { color: var(--accent); }
+  @media print { .work-btn { display: none; } #contact { display: none; } }
   footer { margin-top: 2.5rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
   @media (max-width: 600px) {
     body { padding: 1.25rem 1rem 2rem; }
@@ -61,7 +71,7 @@
     <h1>Sharon Epic Armando</h1>
     <div class="subtitle">AI Creative Technologist</div>
     <div class="contact">Charlottetown, PE · <a href="tel:+19022678081">902-267-8081</a> · <a href="mailto:sharon.epic@bootstraparts.com">sharon.epic@bootstraparts.com</a></div>
-    <a class="work-btn" href="mailto:sharon.epic@bootstraparts.com?subject=Work%20opportunity">Contact me about work</a>
+    <a class="work-btn" href="#contact">Contact me about work</a>
     <div class="links">
       <a href="https://x.com/doctormaster233" target="_blank">@doctormaster233</a> ·
       <a href="https://www.quantumspatial.lol" target="_blank">quantumspatial.lol</a> ·
@@ -137,6 +147,27 @@
 
   <h2>Languages</h2>
   <p class="languages">English (Advanced) · French (Intermediate) · Russian (Intermediate) · Spanish (Novice) · Chinese (Novice)</p>
+
+  <section id="contact" aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Contact me about work</h2>
+    <form class="contact-form" id="contact-form" action="mailto:sharon.epic@bootstraparts.com?subject=Work%20opportunity" method="post" enctype="text/plain">
+      <div><label for="cf-name">Name</label><input id="cf-name" name="name" type="text" autocomplete="name" required></div>
+      <div><label for="cf-email">Email</label><input id="cf-email" name="email" type="email" autocomplete="email" required></div>
+      <div><label for="cf-org">Organisation <span class="optional">(optional)</span></label><input id="cf-org" name="organisation" type="text" autocomplete="organization"></div>
+      <div><label for="cf-message">Message</label><textarea id="cf-message" name="message" required></textarea></div>
+      <button type="submit">Send</button>
+      <p class="form-note">This opens your email app. Or email <a href="mailto:sharon.epic@bootstraparts.com">sharon.epic@bootstraparts.com</a> directly.</p>
+    </form>
+  </section>
+  <script>
+    document.getElementById('contact-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = e.target.elements;
+      var name = f.name.value.trim(), email = f.email.value.trim(), org = f.organisation.value.trim(), msg = f.message.value.trim();
+      var body = 'Name: ' + name + '\nEmail: ' + email + '\nOrganisation: ' + (org || '-') + '\n\n' + msg;
+      window.location.href = 'mailto:sharon.epic@bootstraparts.com?subject=' + encodeURIComponent('Work opportunity from ' + name) + '&body=' + encodeURIComponent(body);
+    });
+  </script>
 
   <footer>
     Sharon Epic Armando · AI Creative Technologist<br>
