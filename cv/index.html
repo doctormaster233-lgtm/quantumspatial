@@ -19,9 +19,9 @@
     line-height: 1.55;
     color: var(--text);
     background: var(--bg);
-    max-width: 820px;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 2rem 1.25rem 3rem;
+    padding: 1.5in 1.5in;
   }
   header { text-align: center; margin-bottom: 2rem; }
   h1 { font-size: 2.1rem; color: var(--accent); font-weight: 700; letter-spacing: -0.5px; }
@@ -60,10 +60,17 @@
   .contact-form button:hover { opacity: 0.9; }
   .form-note { font-size: 0.85rem; color: var(--muted); }
   .form-note a { color: var(--accent); }
-  @media print { .work-btn { display: none; } #contact { display: none; } }
+  h3 { font-size: 1rem; color: var(--accent); margin: 1rem 0 0.3rem; }
+  .job, .skill-group, .edu { page-break-inside: avoid; break-inside: avoid; }
+  @page { margin: 1.25in; }
+  @media print {
+    body { max-width: none; padding: 0; font-size: 11pt; }
+    .work-btn { display: none; } #contact { display: none; }
+    h2 { page-break-after: avoid; break-after: avoid; }
+  }
   footer { margin-top: 2.5rem; text-align: center; font-size: 0.85rem; color: var(--muted); }
   @media (max-width: 600px) {
-    body { padding: 1.25rem 1rem 2rem; }
+    body { padding: 2.5rem 1.5rem; }
     h1 { font-size: 1.7rem; }
   }
 </style>
@@ -84,51 +91,129 @@
 
   <h2>Profile</h2>
   <div class="profile">
-    AI creative technologist seeking AI-focused roles. Skilled in generative AI pipelines, multi-model collaboration with Grok, Claude, and ChatGPT, and interactive 3D and quantum visualization. Builds and deploys web projects end to end with HTML/CSS/JavaScript, GitHub, and Vercel, backed by a long background in graphic design, comic art, and live performance. Multilingual.
+    <p>AI creative technologist seeking AI-focused roles. Creative technologist focused on generative AI content pipelines, interactive visualizations, and exploratory quantum concepts. Skilled in multi-model collaboration with Grok, Claude, and ChatGPT, with hands-on experience using them for comics, AI-assisted film, educational tools, and quantum physics exploration.</p>
+    <p style="margin-top:0.6rem">Builds and deploys web projects end to end with HTML/CSS/JavaScript, Bootstrap, GitHub, Vercel, and Porkbun, backed by a long background in graphic and web design, comic art, and live performance. Multilingual: English, French, Russian, Spanish, and Chinese.</p>
   </div>
 
   <h2>Projects / Portfolio</h2>
 
   <div class="job">
     <div class="job-title"><a href="https://www.doctormaster.uk" target="_blank">doctormaster.uk</a></div>
-    <p>Reverse engineering, Chinese-language work, and Tesseract studies. Interactive tesseract viewer with drag-rotate, quantum visualizations, and related exploratory research. Built with GitHub and deployed on Vercel.</p>
+    <div class="job-meta">Ongoing · Built with GitHub, deployed on Vercel</div>
+    <ul>
+      <li>AI Translator Application: Chinese ↔ English translator with pinyin input, tone visualization, and text-to-speech read-aloud.</li>
+      <li>Reverse engineering and Chinese-language work.</li>
+      <li>Tesseract studies, including an interactive tesseract viewer with drag-rotate.</li>
+      <li>Quantum visualizations and related exploratory research.</li>
+    </ul>
   </div>
 
   <div class="job">
-    <div class="job-title"><a href="https://www.quantumspatial.lol" target="_blank">quantumspatial.lol</a></div>
-    <p>Quantum physics exploration: interactive quantum spatial mapping, tesseract visualizations, Bloch sphere materials, sonification, qubit studies, and educational PDFs. Built with GitHub and deployed on Vercel.</p>
+    <div class="job-title"><a href="https://www.quantumspatial.lol" target="_blank">quantumspatial.lol</a> — Quantum Spatial Mapping Project</div>
+    <div class="job-meta">2026 – Present · Built with GitHub, deployed on Vercel</div>
+    <ul>
+      <li>Interactive platform exploring Quantum Spatial Mapping and the role of spatial geometry in quantum interactions.</li>
+      <li>Created 4D tesseract visualization of four-qubit basis states.</li>
+      <li>Produced educational PDFs on quantum teleportation, Bloch spheres, Hilbert spaces, and decoherence.</li>
+      <li>Developed sonification project (Bohr Flop in C minor).</li>
+      <li>Regularly share quantum diagrams and AI-generated content on X (@doctormaster233).</li>
+    </ul>
   </div>
 
   <div class="job">
-    <div class="job-title"><a href="https://www.anachronicarmy.com" target="_blank">anachronicarmy.com</a></div>
-    <p>“Alias Attack on Anachronic Army,” a browser game — a creative and technical project.</p>
+    <div class="job-title"><a href="https://www.anachronicarmy.com" target="_blank">anachronicarmy.com</a> — Anachronic Army Creative Project</div>
+    <div class="job-meta">Ongoing</div>
+    <ul>
+      <li>“Alias Attack on Anachronic Army,” a browser game — a creative and technical project.</li>
+      <li>Creative project incorporating interactive games and AI-assisted content development.</li>
+    </ul>
   </div>
 
   <h2>Skills</h2>
-  <ul class="skills">
-    <li>Generative AI pipelines</li>
-    <li>Multi-model AI collaboration (Grok, Claude, ChatGPT)</li>
-    <li>Interactive 3D and quantum visualization</li>
-    <li>Web development: HTML/CSS/JavaScript, GitHub, Vercel, DNS</li>
-    <li>Graphic and web design</li>
-    <li>Comic art</li>
-    <li>Live painting and performance</li>
-  </ul>
+  <div class="skill-group">
+    <h3>Generative AI</h3>
+    <ul class="skills">
+      <li>Generative AI pipelines: Grok (text, image, video), Claude, ChatGPT</li>
+      <li>Multi-model content and research workflows</li>
+      <li>AI-assisted comics, AI-assisted film, and educational tools</li>
+    </ul>
+  </div>
+  <div class="skill-group">
+    <h3>Quantum Concepts &amp; Visualization</h3>
+    <ul class="skills">
+      <li>Bloch spheres, entanglement, teleportation, Hilbert spaces, decoherence</li>
+      <li>Interactive 3D and 4D visualizations (tesseracts, qubit basis states)</li>
+      <li>Educational materials and sonification</li>
+    </ul>
+  </div>
+  <div class="skill-group">
+    <h3>Web Development</h3>
+    <ul class="skills">
+      <li>HTML/CSS/JavaScript, Bootstrap</li>
+      <li>GitHub; deployment on Vercel</li>
+      <li>Domain and DNS tools (Porkbun)</li>
+    </ul>
+  </div>
+  <div class="skill-group">
+    <h3>Design &amp; Art</h3>
+    <ul class="skills">
+      <li>Graphic and web design</li>
+      <li>Comic illustration</li>
+      <li>Video editing</li>
+      <li>Live painting and performance art</li>
+    </ul>
+  </div>
 
   <h2>Experience</h2>
-  <ul>
-    <li><strong>Live Painter / Clown</strong>, Halifax, NS (2006–2015) — Live-painted over 1,000 events; sold completed artwork on-site.</li>
-    <li><strong>Business Owner, ODDesign Creative Services</strong>, Halifax, NS (2006–2011) — Designed websites, flyers, and brochures for local businesses and entertainment companies.</li>
-    <li><strong>Graphic and Web Designer, Johnson, Bassin &amp; Shaw, Inc.</strong>, Silver Spring, MD (2000–2003) — Created annual reports, drug treatment materials, .gov websites, and presentation assets.</li>
-    <li><strong>Comic Strip Artist, Sir Prancelot COMIX</strong>, Saskatoon, SK (1991–1995) — Weekly original comic panels published in the Saskatoon StarPhoenix.</li>
-  </ul>
+  <div class="job">
+    <div class="job-title">Live Painter / Clown</div>
+    <div class="job-meta">Halifax, NS | 2006 – 2015</div>
+    <ul>
+      <li>Live-painted over 1,000 events.</li>
+      <li>Sold completed artwork on-site.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-title">Business Owner · ODDesign Creative Services</div>
+    <div class="job-meta">Halifax, NS | 2006 – 2011</div>
+    <ul>
+      <li>Designed websites for local businesses and entertainment companies.</li>
+      <li>Designed flyers and brochures for local businesses and entertainment companies.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-title">Graphic and Web Designer · Johnson, Bassin &amp; Shaw, Inc.</div>
+    <div class="job-meta">Silver Spring, MD | 2000 – 2003</div>
+    <ul>
+      <li>Created annual reports.</li>
+      <li>Created drug treatment materials.</li>
+      <li>Created .gov websites.</li>
+      <li>Created presentation assets.</li>
+    </ul>
+  </div>
+  <div class="job">
+    <div class="job-title">Comic Strip Artist · Sir Prancelot COMIX</div>
+    <div class="job-meta">Saskatoon, SK | 1991 – 1995</div>
+    <ul>
+      <li>Created weekly original comic panels.</li>
+      <li>The comic strip ran in the Saskatoon StarPhoenix, 1991–1995.</li>
+    </ul>
+  </div>
 
   <h2>Education</h2>
-  <p><strong>Bachelor’s Degree, Visual Communications</strong> · Medicine Hat, AB · 1998</p>
-  <p><strong>High School Diploma</strong> · Saskatoon, SK · 1995</p>
+  <div class="edu">
+    <p><strong>Bachelor’s Degree, Visual Communications</strong> · Medicine Hat, AB · 1998</p>
+    <p><strong>High School Diploma</strong> · Saskatoon, SK · 1995</p>
+  </div>
 
   <h2>Languages</h2>
-  <p class="languages">English (Advanced) · French (Intermediate) · Russian (Intermediate) · Spanish (Novice) · Chinese (Novice)</p>
+  <ul class="languages">
+    <li>English — Advanced</li>
+    <li>French — Intermediate</li>
+    <li>Russian — Intermediate</li>
+    <li>Spanish — Novice</li>
+    <li>Chinese — Novice</li>
+  </ul>
 
   <section id="contact" aria-labelledby="contact-heading">
     <h2 id="contact-heading">Contact me about work</h2>
