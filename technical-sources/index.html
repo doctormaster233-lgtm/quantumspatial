@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Technical Sources · Quantum Spatial</title>
+  <meta name="description" content="Working notes on potato-cell battery maths for a Raspberry Pi 2: cell counts, Faraday zinc budgets, and public sources. Calculations, not a built power system.">
+  <meta property="og:title" content="Technical Sources · Quantum Spatial">
+  <meta property="og:site_name" content="Quantum Spatial lol">
+  <meta property="og:description" content="Working notes on potato-cell battery maths for a Raspberry Pi 2: cell counts, Faraday zinc budgets, and public sources.">
+  <meta property="og:url" content="https://www.quantumspatial.lol/technical-sources/">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://www.quantumspatial.lol/og-image.png">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Technical Sources · Quantum Spatial">
+  <meta name="twitter:description" content="Working notes on potato-cell battery maths for a Raspberry Pi 2: cell counts, Faraday zinc budgets, and public sources.">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #000;
+      color: #f5f5f5;
+      font-family: Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+    }
+    main {
+      width: min(820px, calc(100% - 2.5rem));
+      margin: auto;
+      padding: 2rem 0 5rem;
+    }
+    a { color: #9fa8ff; }
+    .back {
+      display: inline-block;
+      margin-bottom: 1.5rem;
+      font-size: .85rem;
+      letter-spacing: .08em;
+      text-decoration: none;
+    }
+    .back:hover { color: #fff; }
+    h1 {
+      font-weight: 300;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 1.6rem;
+      margin: .2rem 0 1rem;
+    }
+    h2 {
+      font-weight: 300;
+      letter-spacing: .06em;
+      border-bottom: 1px solid #2b2b2b;
+      padding-bottom: .4rem;
+      margin-top: 2.75rem;
+    }
+    p { color: #c8c8c8; margin: 0 0 1.1rem; }
+    .label {
+      display: inline-block;
+      border: 1px solid #555;
+      border-radius: 999px;
+      padding: .25rem .8rem;
+      font-size: .8rem;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+    .note { font-size: .85rem; color: #999; }
+    .callout {
+      background: #0b0d17;
+      border: 1px solid #2b2b40;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin: 1.5rem 0;
+    }
+    .callout strong { color: #f5f5f5; font-weight: 500; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0 1.75rem;
+      font-size: .92rem;
+    }
+    th, td {
+      text-align: left;
+      padding: .55rem .65rem;
+      border-bottom: 1px solid #222;
+      vertical-align: top;
+    }
+    th { color: #aaa; font-weight: 500; letter-spacing: .04em; }
+    td.num { text-align: right; font-variant-numeric: tabular-nums; color: #e8e8e8; }
+    ul.sources { padding-left: 1.2rem; margin: 0 0 1rem; }
+    ul.sources li { margin-bottom: .7rem; color: #c8c8c8; }
+    footer {
+      margin-top: 4rem;
+      font-size: .8rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+<main id="top">
+  <a class="back" href="/">← Quantum Spatial</a>
+  <h1>Technical Sources</h1>
+  <p class="label">Working calculations · 5 November 2026</p>
+  <p>
+    Public notes from a potato-cell battery thought experiment aimed at a Raspberry Pi 2.
+    Zinc metal is the sacrificial fuel; potato tissue is mainly the electrolyte (salt bridge), not the main energy store.
+    These figures are working maths from cited public sources—not a built or tested power system.
+  </p>
+
+  <h2>Loaded cell assumption</h2>
+  <p>
+    An optimistic simultaneous loaded measurement from a school Cu–Zn potato worksheet:
+    about <strong>1.0&nbsp;V at 10&nbsp;mA</strong> into a 100&nbsp;Ω load (10&nbsp;mW). That pair matches Ohm’s law
+    (1.0&nbsp;V / 0.010&nbsp;A = 100&nbsp;Ω). Weaker nail-and-penny cells deliver far less under load and would need many more cells.
+  </p>
+
+  <h2>Cell counts for 5&nbsp;V</h2>
+  <p>
+    Using that optimistic cell, a rough pack of <strong>5 series × 35 parallel = 175 cells</strong>
+    targets about <strong>5&nbsp;V at 350&nbsp;mA (1.75&nbsp;W)</strong>—near a Pi&nbsp;2’s typical bare-board active draw,
+    not a 1.5–2&nbsp;A PSU headroom budget. At <strong>7.5–10&nbsp;W</strong> the same optimistic cell implies on the order of
+    <strong>750–1,000 cells</strong>. Weaker setups need far more.
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th class="num">Cells (approx.)</th>
+        <th class="num">Power target</th>
+        <th>Note</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Optimistic Cu–Zn worksheet</td>
+        <td class="num">175 (5×35)</td>
+        <td class="num">1.75&nbsp;W</td>
+        <td>~51&nbsp;g Zn/day pack; 3&nbsp;g/electrode ≈ 10.3&nbsp;d ideal</td>
+      </tr>
+      <tr>
+        <td>PSU-style budget</td>
+        <td class="num">750–1,000</td>
+        <td class="num">7.5–10&nbsp;W</td>
+        <td>Scales with current; same caveats</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Faraday zinc budget (175-cell pack)</h2>
+  <p>
+    Reaction: Zn → Zn²⁺ + 2e⁻. With M = 65.38&nbsp;g/mol, n = 2, F ≈ 96485&nbsp;C/mol
+    (NIST/CODATA Faraday constant), the electrochemical equivalent is about <strong>1.220&nbsp;g/Ah</strong>
+    at 100% current efficiency.
+  </p>
+  <p>
+    Each of the 175 cells carries <strong>10&nbsp;mA</strong>. Load current is 35 × 10&nbsp;mA = 0.35&nbsp;A,
+    but every series anode in a string still oxidizes at that string current, so summed anode current is
+    175 × 0.01 = <strong>1.75&nbsp;A</strong> (a factor of N<sub>s</sub> = 5).
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Quantity</th>
+        <th class="num">Value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Per cell @ 10&nbsp;mA</td>
+        <td class="num">12.2&nbsp;mg/h · 0.293&nbsp;g/day</td>
+      </tr>
+      <tr>
+        <td>All 175 anodes</td>
+        <td class="num">2.13&nbsp;g/h · 51.2&nbsp;g/day</td>
+      </tr>
+      <tr>
+        <td>2&nbsp;g pure Zn per electrode (ideal)</td>
+        <td class="num">~6.8 days · 350&nbsp;g total Zn</td>
+      </tr>
+      <tr>
+        <td>3&nbsp;g pure Zn per electrode (ideal)</td>
+        <td class="num">~10.3 days · 525&nbsp;g total Zn</td>
+      </tr>
+      <tr>
+        <td>5&nbsp;g pure Zn per electrode (ideal)</td>
+        <td class="num">~17.1 days · 875&nbsp;g total Zn</td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="callout">
+    <p><strong>Ideal zinc budgets are not established real-world runtime.</strong></p>
+    <p class="note" style="margin:0">
+      Practical duration for a Pi-scale potato pack was not measured. Voltage sag, drying, passivation,
+      conversion losses, parasitic corrosion, and unusable metal can stop the system much earlier.
+      Galvanized nails are a thin zinc coating (often milligrams), not grams of pure zinc.
+      Published potato-cell demos (e.g. multi-hour LED loads) are not sustained ~10&nbsp;mA/cell Pi-scale runs.
+    </p>
+  </div>
+
+  <h2>Sources</h2>
+  <ul class="sources">
+    <li>
+      <a href="https://recc.tsn.at/sites/default/files/2020-10/kartoffelbatterie.pdf" rel="noopener">Kartoffelbatterie worksheet</a>
+      — loaded Cu–Zn 1.0&nbsp;V · 10&nbsp;mA on 100&nbsp;Ω
+    </li>
+    <li>
+      <a href="https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#typical-power-requirements" rel="noopener">Raspberry Pi typical power requirements</a>
+      — Pi&nbsp;2 recommended PSU vs typical bare-board draw
+    </li>
+    <li>
+      <a href="https://physics.nist.gov/cuu/Constants/" rel="noopener">NIST CODATA fundamental constants</a>
+      — Faraday constant
+    </li>
+    <li>
+      <a href="https://www.tau.ac.il/~agolberg/pdf/2010_3.pdf" rel="noopener">Golberg, Rabinowitch &amp; Rubinsky (2010)</a>
+      — Zn/Cu–potato discharge characterisation (PDF)
+    </li>
+  </ul>
+
+  <footer>
+    <p>Quantum Spatial · technical working notes · not a result</p>
+    <a href="/">Home</a>
+  </footer>
+</main>
+</body>
+</html>
